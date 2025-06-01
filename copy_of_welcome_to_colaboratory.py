@@ -45,12 +45,45 @@
 # print("Compoound Interest ",round(CI,3)-p)
 
 # WAP to implement SIP caculator
-mi=float(input("Enter Monthly Investment : "))
-err=float(input("Enter the  Expected return rate : "))
-tp=float(input("Enter the time period : "))
-i=err/12/100
-M=tp*12
 
-SIP=mi*((((1+i)**(M))-1)*(1+i))/i
-print("SIP is : ",round(SIP))
+
+def get_positive_float(prompt):
+    while True:
+        # Ask user for input
+        value = input(prompt)
+        # Try to convert to float
+        try:
+            number = float(value)
+            # Check if positive
+            if number <= 0:
+                print("Please enter a positive number.")
+            else:
+                return number
+        except:
+            print("Invalid input. Please enter a number.")
+def plan():
+    frequency = input("Enter investment frequency monthly/yearly (m / y) : ").lower()
+    if frequency ==  "y" :
+        yearly_investment = get_positive_float("Enter Yearly Investment : ")
+        mi = yearly_investment/12
+    else:
+        monthly_investment = get_positive_float("Enter Monthly Investment : ")
+        mi = monthly_investment
+    return mi
+
+def calculate_sip(mi, err, tp):
+    i=err/12/100
+    M=tp*12
+    SIP=mi*((((1+i)**(M))-1)*(1+i))/i
+    return SIP
+
+mi = plan()
+# mi=get_positive_float("Enter Monthly Investment : ")
+err=get_positive_float("Enter the  Expected return rate : ")
+tp=get_positive_float("Enter the time period : ")
+
+sip_amount = calculate_sip(mi, err, tp)
+
+
+print("SIP is : ",round(sip_amount))
 
